@@ -1,3 +1,4 @@
+
 syms Kr Kz Bo Bz p w k R Z real
 syms Omega(R)          
 syms P(R,Z)            
@@ -12,9 +13,24 @@ a = [Kr, 0, Kz, 0, 0, 0, 0;
     0, 0, (-i*Kz*Bz), 0, 0, 0, (-i*w);
     0, (-i*Kz*Bz), 0, 0, -R*diff(Omega,R), (-i*w), 0]; 
 
-
 det_a = simplify(det(a));
 
-det_a;
+figure;
 
-latex(det_a)
+eq = { latex(det_a) };  
+
+eq_full = strjoin(eq, '');
+
+annotation('textbox',[0 0 1 1], ...
+    'String',['$' eq_full '$'], ...
+    'Interpreter','latex', ...
+    'FontSize',14, ...
+    'EdgeColor','none');
+
+axis off
+
+
+
+
+
+
