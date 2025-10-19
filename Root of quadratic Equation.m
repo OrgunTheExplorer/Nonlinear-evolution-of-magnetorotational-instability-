@@ -1,7 +1,7 @@
 syms Kr Kz V p w k R real
 syms Omega(R)
 
-% Define the polynomial terms (as symbolic)
+
 w1 = [
     (((Kr^2)/p) + (2*(V^2)*(Kz^2)))/((Kr^2)+(Kz^2)), 
     0, 
@@ -29,20 +29,16 @@ figure('Color', 'w');
 axis off
 
 
-ypos = 0.9;  
+ypos = 0.9; 
 gap = 0.15;  
 
 for i = 1:length(eq_latex)
-    annotation('textbox', [0.05 ypos 0.9 0.1], 
-        'String', ['$' eq_latex{i} '$'], 
-        'Interpreter', 'latex', 
-        'FontSize', 12, 
-        'EdgeColor', 'none', 
-        'FitBoxToText', 'on', 
+    annotation('textbox', [0.05 ypos 0.9 0.1], ...
+        'String', ['$' eq_latex{i} '$'], ...
+        'Interpreter', 'latex', ...
+        'FontSize', 12, ...
+        'EdgeColor', 'none', ...
+        'FitBoxToText', 'on', ...
         'VerticalAlignment', 'top');
-    ypos = ypos - gap;  % move downward
+    ypos = ypos - gap;  
 end
-
-
-
-
