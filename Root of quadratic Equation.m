@@ -22,7 +22,7 @@ w2 = [
 
 root_w = simplify(roots(w2));
 
-
+% https://www.mathworks.com/help/matlab/ref/arrayfun.html
 eq_latex = arrayfun(@latex, root_w, 'UniformOutput', false);
 
 figure('Color', 'w');
