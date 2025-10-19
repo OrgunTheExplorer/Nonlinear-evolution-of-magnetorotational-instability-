@@ -19,26 +19,26 @@ w2 = [
 ];
 
 
-% Calculate roots
+
 root_w = simplify(roots(w2));
 
-% Convert to LaTeX strings
+
 eq_latex = arrayfun(@latex, root_w, 'UniformOutput', false);
 
 figure('Color', 'w');
 axis off
 
-% Initial position for first equation
-ypos = 0.9;  % start high on the figure
-gap = 0.15;  % vertical spacing between roots
+
+ypos = 0.9;  
+gap = 0.15;  
 
 for i = 1:length(eq_latex)
-    annotation('textbox', [0.05 ypos 0.9 0.1], ...
-        'String', ['$' eq_latex{i} '$'], ...
-        'Interpreter', 'latex', ...
-        'FontSize', 12, ...
-        'EdgeColor', 'none', ...
-        'FitBoxToText', 'on', ...
+    annotation('textbox', [0.05 ypos 0.9 0.1], 
+        'String', ['$' eq_latex{i} '$'], 
+        'Interpreter', 'latex', 
+        'FontSize', 12, 
+        'EdgeColor', 'none', 
+        'FitBoxToText', 'on', 
         'VerticalAlignment', 'top');
     ypos = ypos - gap;  % move downward
 end
