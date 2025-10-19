@@ -1,5 +1,6 @@
 syms Kr Kz V p w k R real
-syms Omega(R)
+syms Omega(R) real
+
 
 
 w1 = [
@@ -7,7 +8,7 @@ w1 = [
     0, 
     -(((k^2)*(Kz^2))/((Kr^2)+(Kz^2))) + (2*(V^2)*(Kz^2)), 
     0, 
-    (((V^4)*(Kz^6)) + ((Kr^2)*(Kz^4)*(V^4)) - (2*(Omega(R))*(V^2)*(Kz^2)*diff(Omega,R)))/((Kr^2)+(Kz^2))
+    (((V^4)*(Kz^6)) + ((Kr^2)*(Kz^4)*(V^4)) - (2*(Omega(R))*(V^2)*(Kz^2)*diff(Omega(R),R)))/((Kr^2)+(Kz^2))
 ];
 
 w2 = [
@@ -25,7 +26,7 @@ root_w = simplify(roots(w2));
 % https://www.mathworks.com/help/matlab/ref/arrayfun.html
 eq_latex = arrayfun(@latex, root_w, 'UniformOutput', false);
 
-figure('Color', 'w');
+figure('Color', 'k');
 axis off
 
 
@@ -42,3 +43,7 @@ for i = 1:length(eq_latex)
         'VerticalAlignment', 'top');
     ypos = ypos - gap;  
 end
+
+
+
+
