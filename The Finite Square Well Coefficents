@@ -1,0 +1,42 @@
+syms k1 k2 a real
+syms E B C D real
+i = sym('1i');
+
+
+A = [-1, 0,  (k2*exp( i*k2*a/2))/(k1*exp( i*k1*a/2)), -(k2*exp(-i*k2*a/2))/(k1*exp( i*k1*a/2));
+     -1, 0,  (exp( i*k2*a/2))/(exp( i*k1*a/2)),       (exp(-i*k2*a/2))/(exp( i*k1*a/2));
+      0, -1, -(k2*exp(-i*k2*a/2))/(k1*exp( i*k1*a/2)), (k2*exp( i*k2*a/2))/(k1*exp( i*k1*a/2));
+      0, -1,  (exp(-i*k2*a/2))/(exp( i*k1*a/2)),       (exp( i*k2*a/2))/(exp( i*k1*a/2))];
+
+
+b = [0;
+     0;
+     -exp(-i*k1*a);
+      exp(-i*k1*a)];
+
+
+c = [E; B; C; D];
+
+
+sol = simplify(A\b);
+E_sol = simplify(sol(1));
+B_sol = simplify(sol(2));
+C_sol = simplify(sol(3));
+D_sol = simplify(sol(4));
+
+
+T = simplify(conj(E_sol)*E_sol);
+R = simplify(conj(B_sol)*B_sol);
+one = simplify(R+T);
+
+
+figure('Color','k');
+axis off
+
+
+text(0, 1.0, ['$T = ', latex(T), '$'], 'Interpreter','latex', 'FontSize',14);
+text(0, 0.8, ['$R = ', latex(R), '$'], 'Interpreter','latex', 'FontSize',14);
+text(0, 0.6, ['$1 = ', latex(one), '$'], 'Interpreter','latex', 'FontSize',14);
+
+
+title('','Interpreter','latex','FontSize',16)
