@@ -1,30 +1,44 @@
-syms Kr Kz V p w k R real
-syms Omega(R) real
+syms Kr Kz Bo Bz p w k R Z V real
+syms Omega(R) real         
+syms P(R,Z)            
+i = sym('1i');        
 
 
+a = [Kr, 0, Kz, 0, 0, 0, 0;
+    (-i*w), -2*Omega(R), 0, (i*Kr)/(p), (-i*Kz*Bz)/(4*pi*p), (i*Kr*Bo)/(4*pi*p), (i*Kr*Bz)/(4*pi*p);
+    (diff(Omega(R)*R^2,R)/R), (-i*w), 0, 0, 0, (-i*Kz*Bz)/(4*pi*p), 0;
+    0, 0, (-i*w), (i*Kz)/(p), 0, (i*Kz*Bo)/(4*pi*p), 0;
+    (-i*Kz*Bz), 0, 0, 0, (-i*w), 0, 0;
+    0, 0, (-i*Kz*Bz), 0, 0, 0, (-i*w);
+    0, (-i*Kz*Bz), 0, 0, -R*diff(Omega(R),R), (-i*w), 0]; 
 
-w1 = [
-    (((Kr^2)/p) + (2*(V^2)*(Kz^2)))/((Kr^2)+(Kz^2)), 
-    0, 
-    -(((k^2)*(Kz^2))/((Kr^2)+(Kz^2))) + (2*(V^2)*(Kz^2)), 
-    0, 
-    (((V^4)*(Kz^6)) + ((Kr^2)*(Kz^4)*(V^4)) - (2*(Omega(R))*(V^2)*(Kz^2)*diff(Omega(R),R)))/((Kr^2)+(Kz^2))
-];
+
 
 w2 = [
     1, 
     0, 
-    -(((k^2)*(Kz^2))/((Kr^2)+(Kz^2))) + (2*(V^2)*(Kz^2)), 
+    -(((4*(Omega(R)^2)*(Kz^2))/((Kr^2)+(Kz^2)))+(2*Kz^2)*(((Omega(R)*R*diff(Omega(R),R))/((Kr^2)+(Kz^2)))+(V^2))), 
     0, 
-    ((V^4)*(Kz^4)) + (((k^2)*(Kz^4)*(V^2)) - (4*(Omega(R)^2)*(V^2)*(Kz^2))/((Kr^2)+(Kz^2)))
+    ((V^2)*(Kz^4))*(((2*Omega(R)*R*diff(Omega(R),R))/((Kr^2)+(Kz^2)))+(V^2))
 ];
 
 
+det_a = simplify(det(a));
+det_a = subs(det_a, (Bz^2), V*(4*pi*p));
+root_w1 = simplify(solve(det_a == 0, w, 'MaxDegree', 4));
+root_w1 = simplify(root_w1);
 
-root_w = simplify(roots(w2));
+
+
+
+root_w2 = simplify(roots(w2));
+root_w2 = simplify(root_w2);
+
+  
+
 
 % https://www.mathworks.com/help/matlab/ref/arrayfun.html
-eq_latex = arrayfun(@latex, root_w, 'UniformOutput', false);
+eq_latex = arrayfun(@latex, root_w1, 'UniformOutput', false);
 
 figure('Color', 'k');
 axis off
@@ -43,7 +57,3 @@ for i = 1:length(eq_latex)
         'VerticalAlignment', 'top');
     ypos = ypos - gap;  
 end
-
-
-
-
